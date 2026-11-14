@@ -64,7 +64,8 @@ An error instead of a version means that tool didn't install or isn't on your PA
 
 For Claude test the path
 
- ```Test-Path "$env:USERPROFILE\.local\bin\claude.exe"
+ ```
+ Test-Path "$env:USERPROFILE\.local\bin\claude.exe"
  ```
  the above should return true
 set the path
