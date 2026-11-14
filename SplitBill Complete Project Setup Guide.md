@@ -62,6 +62,15 @@ claude --version
 
 An error instead of a version means that tool didn't install or isn't on your PATH. Reinstall it, then close and reopen the terminal.
 
+For Claude test the path
+
+ ```Test-Path "$env:USERPROFILE\.local\bin\claude.exe"
+ ```
+ the above should return true
+set the path
+ ```
+ SetEnvironmentVariable("Path", $env:Path + ";$env:USERPROFILE\.local\bin", "User")
+ ```
 **First-time Git setup** (once per laptop; use your own name and the email on your GitHub account):
 
 ```powershell
