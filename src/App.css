@@ -1,0 +1,351 @@
+/* ===== 1. Design system (colours and sizes from design.md) ===== */
+
+:root {
+  --primary: #6C63FF; /* Purple: buttons and highlights */
+  --primary-hover: #574FE8; /* Darker purple when hovering a button */
+  --background: #F7F8FC; /* Light grey page background */
+  --card: #FFFFFF; /* White card background */
+  --text-primary: #202438; /* Dark text for headings */
+  --text-secondary: #7B8194; /* Grey text for hints */
+  --owed: #16A36A; /* Green: money you should receive */
+  --owed-bg: #E5F6ED; /* Light green background */
+  --owes: #E05252; /* Red: money you need to pay */
+  --owes-bg: #FCE9E9; /* Light red background */
+  --border: #E9EAF0; /* Light border colour */
+  --shadow: 0 4px 16px rgba(32, 36, 56, 0.05); /* Soft card shadow */
+  --radius: 14px; /* Rounded corners for cards */
+}
+
+/* ===== 2. Global styles ===== */
+
+* {
+  margin: 0; /* Remove default outer spacing */
+  padding: 0; /* Remove default inner spacing */
+  box-sizing: border-box; /* Include padding in width calculations */
+}
+
+body {
+  font-family: 'Inter', sans-serif; /* Use the Inter font */
+  background: var(--background); /* Light grey page background */
+  color: var(--text-primary); /* Dark text */
+  line-height: 1.6; /* Comfortable space between lines */
+}
+
+button,
+input,
+select {
+  font-family: inherit; /* Use the same font as the page */
+  font-size: inherit; /* Use the same text size as the page */
+}
+
+button {
+  cursor: pointer; /* Show a hand cursor on buttons */
+  border: none; /* Remove the default button border */
+}
+
+ul {
+  list-style: none; /* Remove bullet points from lists */
+}
+
+.app-container {
+  width: 100%; /* Use the full screen width on phones */
+  max-width: 1100px; /* Don't get too wide on big screens */
+  margin: 0 auto; /* Centre the page */
+  padding: 16px; /* Space around the edges on phones */
+}
+
+/* ===== 3. Header ===== */
+
+.app-header {
+  display: flex; /* Put logo and Reset button in a row */
+  justify-content: space-between; /* Push them to opposite sides */
+  align-items: center; /* Line them up vertically */
+  gap: 12px; /* Space between them */
+  margin-bottom: 20px; /* Space below the header */
+}
+
+.logo {
+  font-size: 24px; /* Big logo text */
+  font-weight: 700; /* Bold */
+  color: var(--primary); /* Purple */
+}
+
+.group-info {
+  color: var(--text-secondary); /* Grey text */
+  font-size: 14px; /* Small text */
+}
+
+/* ===== 4. Layout ===== */
+
+.dashboard {
+  display: grid; /* Use a grid for the sections */
+  grid-template-columns: 1fr; /* One column on phones */
+  gap: 16px; /* Space between sections */
+}
+
+/* ===== 5. Cards ===== */
+
+.card {
+  background: var(--card); /* White background */
+  padding: 16px; /* Space inside the card */
+  border-radius: var(--radius); /* Rounded corners */
+  box-shadow: var(--shadow); /* Soft shadow */
+  border: 1px solid var(--border); /* Thin border */
+}
+
+.section-title {
+  font-size: 17px; /* Medium heading size */
+  font-weight: 600; /* Semi-bold */
+  margin-bottom: 14px; /* Space below the heading */
+}
+
+.muted {
+  color: var(--text-secondary); /* Grey hint text */
+  font-size: 14px; /* Small text */
+}
+
+.error {
+  color: var(--owes); /* Red, so errors stand out */
+  font-size: 14px; /* Small text */
+  margin: 8px 0 12px; /* Space above and below */
+}
+
+/* ===== 6. Forms ===== */
+
+.form-group {
+  margin-bottom: 16px; /* Space between form fields */
+}
+
+.form-group label,
+.field-label {
+  display: block; /* Put the label on its own line */
+  font-size: 13px; /* Small label text */
+  font-weight: 500; /* Medium weight */
+  margin-bottom: 6px; /* Space between label and box */
+}
+
+input[type='text'],
+select {
+  width: 100%; /* Fill the available width */
+  padding: 12px; /* Space inside the box */
+  border: 1px solid var(--border); /* Thin border */
+  border-radius: 9px; /* Rounded corners */
+  background: var(--background); /* Light grey inside */
+  color: var(--text-primary); /* Dark text */
+  outline: none; /* Remove the default focus outline */
+}
+
+input[type='text']:focus,
+select:focus {
+  border-color: var(--primary); /* Purple border when typing */
+}
+
+.inline-form {
+  display: flex; /* Put the input and button in a row */
+  gap: 8px; /* Space between them */
+  margin-bottom: 14px; /* Space below the form */
+}
+
+.split-options {
+  display: flex; /* Put the two radio buttons in a row */
+  gap: 16px; /* Space between them */
+}
+
+.form-group .choice {
+  display: flex; /* Put the tick box and its text in a row */
+  align-items: center; /* Line them up vertically */
+  gap: 8px; /* Space between box and text */
+  font-size: 15px; /* Normal text size */
+  font-weight: 400; /* Normal weight */
+  margin-bottom: 4px; /* Space between choices */
+  cursor: pointer; /* Hand cursor, since the label is clickable */
+}
+
+.choice input {
+  width: 18px; /* Bigger tick box, easier to tap */
+  height: 18px; /* Bigger tick box, easier to tap */
+  accent-color: var(--primary); /* Purple tick */
+}
+
+.custom-row {
+  display: grid; /* Name and box side by side */
+  grid-template-columns: 1fr 120px; /* Name takes the rest, box is 120px */
+  align-items: center; /* Line them up vertically */
+  gap: 8px; /* Space between name and box */
+  margin-bottom: 8px; /* Space between rows */
+}
+
+.form-group .custom-row label {
+  margin-bottom: 0; /* No extra space under the name */
+  font-size: 15px; /* Normal text size */
+}
+
+/* ===== 7. Buttons ===== */
+
+.btn {
+  padding: 11px 16px; /* Space inside the button */
+  border-radius: 9px; /* Rounded corners */
+  font-weight: 600; /* Semi-bold text */
+  transition: 0.2s ease; /* Smooth colour change on hover */
+  white-space: nowrap; /* Keep button text on one line */
+}
+
+.btn-primary {
+  background: var(--primary); /* Purple */
+  color: white; /* White text */
+}
+
+.btn-primary:hover {
+  background: var(--primary-hover); /* Darker purple on hover */
+}
+
+.btn-settle {
+  background: var(--owed); /* Green, because it settles money */
+  color: white; /* White text */
+}
+
+.btn-settle:hover {
+  opacity: 0.9; /* Slightly lighter on hover */
+}
+
+.btn-ghost {
+  background: transparent; /* No fill */
+  color: var(--text-secondary); /* Grey text */
+  border: 1px solid var(--border); /* Thin border */
+}
+
+.btn-ghost:hover {
+  color: var(--text-primary); /* Darker text on hover */
+  border-color: var(--text-secondary); /* Darker border on hover */
+}
+
+.btn-small {
+  padding: 6px 12px; /* Smaller button */
+  font-size: 13px; /* Smaller text */
+}
+
+.btn-block {
+  width: 100%; /* Full-width button */
+}
+
+/* ===== 8. Friends list ===== */
+
+.friends-list {
+  display: flex; /* Put friends in a row */
+  flex-wrap: wrap; /* Wrap onto new lines when full */
+  gap: 8px; /* Space between friends */
+}
+
+.friend-item {
+  display: flex; /* Avatar and name in a row */
+  align-items: center; /* Line them up vertically */
+  gap: 8px; /* Space between avatar and name */
+  padding: 6px 12px 6px 6px; /* Space inside the pill */
+  background: var(--background); /* Light grey pill */
+  border-radius: 30px; /* Pill shape */
+  font-size: 14px; /* Small text */
+}
+
+.friend-avatar {
+  width: 28px; /* Circle width */
+  height: 28px; /* Circle height */
+  border-radius: 50%; /* Make it round */
+  background: #EAE8FF; /* Light purple circle */
+  color: var(--primary); /* Purple letter */
+  display: flex; /* Centre the letter... */
+  justify-content: center; /* ...horizontally */
+  align-items: center; /* ...and vertically */
+  font-weight: 600; /* Semi-bold letter */
+}
+
+/* ===== 9. Expense list ===== */
+
+.expense-item {
+  display: flex; /* Details and amount in a row */
+  justify-content: space-between; /* Push them to opposite sides */
+  align-items: center; /* Line them up vertically */
+  gap: 10px; /* Space between them */
+  padding: 12px 0; /* Space above and below each row */
+  border-bottom: 1px solid var(--border); /* Line between rows */
+}
+
+.expense-item:last-child {
+  border-bottom: none; /* No line after the last row */
+}
+
+.expense-details h4 {
+  font-size: 15px; /* Description size */
+  font-weight: 600; /* Semi-bold */
+}
+
+.expense-details p {
+  font-size: 12px; /* Small text */
+  color: var(--text-secondary); /* Grey */
+}
+
+.expense-right {
+  display: flex; /* Amount above the Delete button */
+  flex-direction: column; /* Stack them */
+  align-items: flex-end; /* Line them up on the right */
+  gap: 6px; /* Space between them */
+}
+
+.expense-amount {
+  font-weight: 600; /* Semi-bold amount */
+  font-size: 15px; /* Normal size */
+}
+
+/* ===== 10. Balances and Settle Up ===== */
+
+.balance-item {
+  padding: 12px 14px; /* Space inside each row */
+  border-radius: 10px; /* Rounded corners */
+  margin-bottom: 8px; /* Space between rows */
+  font-size: 15px; /* Normal text size */
+}
+
+.balance-owed {
+  background: var(--owed-bg); /* Light green */
+  color: var(--owed); /* Green text */
+}
+
+.balance-owes {
+  background: var(--owes-bg); /* Light red */
+  color: var(--owes); /* Red text */
+}
+
+.balance-settled {
+  background: var(--background); /* Light grey */
+  color: var(--text-secondary); /* Grey text */
+}
+
+.payment-item {
+  display: flex; /* Sentence and button in a row */
+  justify-content: space-between; /* Push them to opposite sides */
+  align-items: center; /* Line them up vertically */
+  gap: 10px; /* Space between them */
+  padding: 10px 0; /* Space above and below */
+  border-bottom: 1px solid var(--border); /* Line between rows */
+}
+
+.payment-item:last-child {
+  border-bottom: none; /* No line after the last row */
+}
+
+/* ===== 11. Tablet and desktop (screens 768px and wider) ===== */
+
+@media (min-width: 768px) {
+  .app-container {
+    padding: 32px; /* More space around the page */
+  }
+
+  .dashboard {
+    grid-template-columns: 1fr 1fr; /* Two columns side by side */
+    align-items: start; /* Cards keep their own height */
+    gap: 20px; /* A bit more space between cards */
+  }
+
+  .card {
+    padding: 24px; /* More space inside cards */
+  }
+}
