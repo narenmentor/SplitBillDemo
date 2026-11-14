@@ -1,7 +1,13 @@
 // Vitest tools: describe groups tests, it is one test, expect checks a value
 import { describe, it, expect } from 'vitest'
 // The money functions we want to test
-import { toPaise, formatRupees, computeNet } from './split.js'
+import { toPaise, formatRupees, splitEqual, computeNet, simplifyDebts } from './split.js'
+
+// Add up all the values in a shares object, e.g. { a: 1, b: 2 } gives 3
+function sumShares(shares) {
+  // Take every value and add them together, starting from 0
+  return Object.values(shares).reduce((sum, share) => sum + share, 0)
+} // End of sumShares
 
 // Tests for toPaise
 describe('toPaise', () => {
@@ -77,3 +83,84 @@ describe('computeNet', () => {
     expect(computeNet(expenses, settlements)).toEqual({ n: 0, a: 0 })
   }) // End of test
 }) // End of computeNet tests
+
+// Tests for splitEqual
+describe('splitEqual', () => {
+  // ₹100 between 3 people cannot divide evenly
+  it('gives the extra paisa to the first member and keeps the exact total', () => {
+    // Split 10000 paise between a, b and c
+    const shares = splitEqual(10000, ['a', 'b', 'c'])
+    // The first person gets the 1 leftover paisa
+    expect(shares).toEqual({ a: 3334, b: 3333, c: 3333 })
+    // Nothing is lost or created: the shares add up to exactly 10000
+    expect(sumShares(shares)).toBe(10000)
+  }) // End of test
+  // ₹300 between 3 people divides evenly
+  it('splits an even amount equally', () => {
+    // Everyone gets exactly ₹100
+    expect(splitEqual(30000, ['a', 'b', 'c'])).toEqual({ a: 10000, b: 10000, c: 10000 })
+  }) // End of test
+  // Only one person in the split
+  it('gives one member the full amount', () => {
+    // The single member pays all of it
+    expect(splitEqual(12345, ['a'])).toEqual({ a: 12345 })
+  }) // End of test
+  // Bad input should stop with an error
+  it('throws for bad input', () => {
+    // Nobody to split between
+    expect(() => splitEqual(10000, [])).toThrow('memberIds is empty')
+    // Half a paisa is not allowed
+    expect(() => splitEqual(100.5, ['a', 'b'])).toThrow('whole number')
+    // The same person listed twice
+    expect(() => splitEqual(10000, ['a', 'a', 'b'])).toThrow('duplicate')
+  }) // End of test
+}) // End of splitEqual tests
+
+// Tests for simplifyDebts
+describe('simplifyDebts', () => {
+  // Nobody owes anything
+  it('returns no payments when everyone is settled', () => {
+    // Everyone is at zero, so there is nothing to pay
+    expect(simplifyDebts({ a: 0, b: 0, c: 0 })).toEqual([])
+    // No balances at all also means nothing to pay
+    expect(simplifyDebts({})).toEqual([])
+  }) // End of test
+}) // End of simplifyDebts tests
+
+// A full example: Naren, Arun and Priya share coffee and dinner
+describe('scenario: coffee and dinner', () => {
+  // Friends in the order they were added
+  const members = ['naren', 'arun', 'priya']
+  // The two expenses, using splitEqual to build the shares just like the app does
+  const expenses = [
+    // Coffee ₹100 paid by Naren: Naren 3334, Arun 3333, Priya 3333
+    { amountPaise: 10000, paidBy: 'naren', shares: splitEqual(10000, members) },
+    // Dinner ₹450 paid by Arun: 15000 each
+    { amountPaise: 45000, paidBy: 'arun', shares: splitEqual(45000, members) },
+  ] // End of expenses list
+
+  // Check the balances and the suggested payments
+  it('computes net balances and two payments', () => {
+    // Work out everyone's balance with no settlements yet
+    const net = computeNet(expenses, [])
+    // Naren: +10000 - 3334 - 15000 = -8334, Arun: +45000 - 3333 - 15000 = 26667, Priya: -3333 - 15000 = -18333
+    expect(net).toEqual({ naren: -8334, arun: 26667, priya: -18333 })
+    // Arun is owed by both; the bigger debtor (Priya) pays first
+    expect(simplifyDebts(net)).toEqual([
+      // Priya pays Arun ₹183.33
+      { from: 'priya', to: 'arun', amountPaise: 18333 },
+      // Naren pays Arun ₹83.34
+      { from: 'naren', to: 'arun', amountPaise: 8334 },
+    ]) // End of expected payments
+  }) // End of test
+
+  // Recording the suggested payments should clear everyone
+  it('settles everyone to zero after the payments', () => {
+    // Get the suggested payments from the balances
+    const payments = simplifyDebts(computeNet(expenses, []))
+    // Use those payments as settlements and recompute the balances
+    const net = computeNet(expenses, payments)
+    // Everyone is now at exactly zero
+    expect(net).toEqual({ naren: 0, arun: 0, priya: 0 })
+  }) // End of test
+}) // End of scenario tests
