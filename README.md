@@ -4,7 +4,7 @@ A simple bill-splitting app for friends, like Splitwise. Add friends, add expens
 
 Built as a beginner-friendly project for an **Entri Coding Tamil** tutorial. It shows how to build an app with AI (Claude Code + ChatGPT) **and** why you still need coding skills to check, fix, test and deploy what the AI writes.
 
-🔗 **Live demo:** [your-vercel-link.vercel.app](https://your-vercel-link.vercel.app)
+🔗 **Live demo:** [split-bill-demo-bay.vercel.app](https://split-bill-demo-bay.vercel.app/)
 
 ---
 
