@@ -27,6 +27,7 @@ This guide takes you from an empty Windows laptop to a live SplitBill app on Ver
 
 **The one rule that matters:** all money is stored as whole paise, never decimals. Rs 100 = 10000 paise. With decimals, Rs 100 / 3 = 33.33, and 33.33 x 3 = 99.99, so 1 paisa disappears.
 
+# PART 1 - INSTALLATION
 ## Step 1: Install the required tools
 
 Install these four, in this order. Accept the default options in each installer.
@@ -119,6 +120,7 @@ claude
 | Plan | Only reads and plans, changes nothing | Understanding a project first |
 
 Press `Esc` to stop Claude mid-task.
+# PART 2 - Development and Testing
 
 ## Step 5: Set up the project (Prompt 1)
 
@@ -375,6 +377,7 @@ npm run build
 ```
 
 All three should finish with no errors. `npm run build` creates a `dist` folder. You don't edit it, and `.gitignore` keeps it out of GitHub.
+# PART 3 - Deployment and using
 
 ## Step 13: Push the code to GitHub
 
