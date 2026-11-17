@@ -448,3 +448,50 @@ Chats are saved per folder and deleted after about a month, so keep important pr
 | `git push` is rejected | The GitHub repo wasn't empty; create it again with no README |
 | Vercel build fails | Run `npm run build` on your laptop, fix the error, commit and push again |
 | Data disappears on another phone | Expected: data lives in each browser's localStorage only |
+
+
+---
+
+## 🚧 What's missing in v1 (and how to build it)
+
+SplitBill v1 works, but it's a **frontend-only** app. Here's what separates it from a real product like Splitwise, and the skill each gap needs:
+
+| # | What v1 can't do | Why | What it takes to fix |
+|---|---|---|---|
+| 1 | Share data between phones | Data lives in one browser's localStorage | A **Node.js + Express** API and a **MongoDB** database |
+| 2 | Log in | No user accounts | **Authentication**: sign-up, login, password hashing, JWT |
+| 3 | Let friends join a group | Only one person can add expenses | **Groups and invite links**, user–group relationships |
+| 4 | Stop anyone editing the data | localStorage can be changed from the browser's DevTools | **Server-side validation** and secure APIs |
+| 5 | Edit an expense or remove a friend | Only add and delete are built | Full **CRUD** and database schema design |
+| 6 | Keep separate groups (Goa trip, flatmates) | One list for everything | **Data modelling** for users, groups, expenses, settlements |
+| 7 | Show a friend's expense instantly | No live connection | **Real-time updates** with Socket.io |
+| 8 | Remind people who owe money | No notifications | **Email/WhatsApp reminders** and scheduled jobs |
+| 9 | Pay through UPI when you click Settle | Settle only records a note | **UPI payment links** or a payment gateway |
+| 10 | Attach a bill photo | No file storage | **File uploads** and cloud image storage |
+| 11 | Show monthly spending charts | No history queries | **MongoDB aggregation** and charts in React |
+| 12 | Deploy a backend | Only the frontend is hosted | **Full stack deployment**: backend hosting, environment variables, connecting frontend and backend |
+
+> **AI wrote a lot of this code, but someone still had to check it, fix it, test it and deploy it.** Turning v1 into a real product needs the full stack skills listed above.
+
+### 🎓 Want to build these yourself?
+
+Learn **Full Stack MERN development in Tamil** with **Entri Coding Tamil**: MongoDB, Express, React and Node.js, from basics to deploying real projects like this one.
+
+👉 **Join the Full Stack MERN program** 
+
+To enquire about our AI driven courses, Fill the form below
+https://interest.entri.app/uRsgYKm
+📞 Enquiry / Counselling: 7736360783
+
+We provide courses in 
+🔥 Advanced Program in Data Science
+🔥 Automation Testing with Playwright
+🔥 Agentic Full Stack Development (MERN)
+🔥 Program in AI Driven Data Analytics
+
+📺 Watch how SplitBill v1 was built: **[YouTube video](will be uploaded soon)**
+💬 Which feature should we build first in Part 2? Tell us in the video comments!
+
+---
+
+Made with ☕ and code by **Naren**, Entri Coding Tamil
